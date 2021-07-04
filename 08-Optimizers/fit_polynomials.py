@@ -42,6 +42,8 @@ def fit_poly(data, error_func, degree=4):
      return np.poly1d(result.x)
 
 def test_run():
+    #Fit a polynomial to a given set of data points using optimization.
+
     # define orginal polynomial curve 
     corig = np.poly1d([1.5, -10, -5, 60, 50])
     print("Orginal polynomial: {}*x^4 + {}*x^3 + {}*x^2 + {}*x + {}".format(corig[4], corig[3], corig[2], corig[1], corig[0]))
