@@ -31,11 +31,20 @@ def test_run():
     # access the underlying ndarray in dataframe .values
     dailyret = (df[symbol][1:]/df[symbol][:-1].values - 1) * 100
 
-    #plot daily return data, retain axis object
+    #plot daily return data
+    f1 = plt.figure(1)
     ax = dailyret.plot(title='{} daily return'.format(symbol), label=symbol)
     ax.set_xlabel("Date", fontsize=12)
     ax.set_ylabel("% Return", fontsize=12)
     ax.legend(loc='lower left')
+
+    #plot cumulative return data
+    cumreturns = compute_cumulative_return(df) * 100
+    ax2 = cumreturns.plot(title='{} cumulative return'.format(symbol), label=symbol)
+    ax2.set_xlabel("Date", fontsize=12)
+    ax2.set_ylabel("% Return", fontsize=12)
+    ax2.legend(loc='lower left')
+
     plt.show()
 
 if __name__ == "__main__":
