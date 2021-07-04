@@ -1,35 +1,7 @@
-import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import stockdata as sd
 
-def symbol_to_path(symbol, base_dir="../data"):
-    #Return CSV path for the ticker
-    return os.path.join(base_dir, "{}.csv".format(str(symbol)))   
-
-def get_data(symbols, dates):
-     #Read stock data from for given symbols from CSV file
-     df = pd.DataFrame(index=dates)
-
-     for symbol in symbols:
-         df_temp = pd.read_csv(symbol_to_path(symbol), 
-         index_col='Date', 
-         parse_dates = True, 
-         usecols=['Date', 'Adj Close'],
-         na_values=['nan'])
-         df_temp = df_temp.rename(columns={'Adj Close' : symbol})
-         df = df.join(df_temp)
-         #remove NA in the data 
-         df = df.dropna(subset=[symbol])
-
-     return df
-
-def plot_data(df, title="stock prices"):
-    # Plot stock prices 
-    fontsize = 12
-    ax = df.plot(title=title, fontsize=fontsize)
-    ax.set_xlabel("Date", fontsize=fontsize)
-    ax.set_ylabel("Price", fontsize=fontsize)
-    plt.show()
 
 def get_rolling_mean(df, window):
      return df.rolling(window=window, center=False).mean()
@@ -48,7 +20,7 @@ def test_run():
     dates = pd.date_range('2017-04-01', '2018-02-28')
     symbol='AAPL'
     symbols = [symbol]
-    df = get_data(symbols, dates)
+    df = sd.get_data(symbols, dates)
 
     # compute rolling mean
     rmean = get_rolling_mean(df[symbol], window=20)
