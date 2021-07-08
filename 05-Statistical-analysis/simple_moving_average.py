@@ -1,7 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import stockdata as sd
-
+import sys
+from pathlib import Path as pa
+sys.path.insert(0, str(pa(__file__).resolve().parent.parent))
+from common import stockdata as sd
 
 def get_rolling_mean(df, window):
      return df.rolling(window=window, center=False).mean()
